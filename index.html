@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Forte Me! - Step1</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/stylish-portfolio.css" rel="stylesheet">
+
+    <style type="text/css">
+	span.name {
+		color: blue;
+		padding-right: 10px;
+		width: 50px;
+	}
+    </style>
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <!-- Services -->
+    <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
+    <section id="services" class="services bg-primary">
+        <div class="container">
+		<ul id="posList">
+			<li><span style="font-weight: bold;padding-right: 10px; width: 50px;">Name</span><span style="font-weight: bold; width: 50px;">Location</span><span>Edit</span>
+		</ul>
+	</div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1 text-center">
+                    <h4><strong>Unicorn Ranch</strong>
+                    </h4>
+                    <p>123 Some Place<br>Portland, OR 97201</p>
+                </div>
+            </div>
+        </div>
+	<div id="editPos">
+		<h3 id="ucName"></h3>
+		<input id="ucIndex" type="hidden"/>
+		<select id="selLoc">
+		</select>
+		<button type="button" onclick="savePos()">Save</button>
+	</div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script>
+    // Closes the sidebar menu
+    $("#menu-close").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    // Opens the sidebar menu
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#sidebar-wrapper").toggleClass("active");
+    });
+
+    $(document).ready(function() {
+	for(var i = 0; i < unicorns.length; i++) {
+		$("#posList").append("<li><span class=\"name\">" + unicorns[i].name + "</span><span>" +
+			locations[unicorns[i].posIndex] + "</span><span><button type=\"button\" onclick=\"updatePos(" + i + ")\">Update Position</button></span></li>");
+	}
+
+	for(var i = 0; i < locations.length; i++) {
+		$("#selLoc").append("<option value=\"" + i + "\">" + locations[i] + "</option>");
+	}
+	$("#editPos").hide();
+    });
+
+    var locations = ["barn", "shed", "pasture", "stall", "vet's corner"];
+
+    var unicorns = [
+	{ "name": "Unicorn #1", "posIndex": 4},
+	{ "name": "Unicorn #2", "posIndex": 1},
+	{ "name": "Unicorn #3", "posIndex": 3},
+	{ "name": "Unicorn #4", "posIndex": 0},
+	{ "name": "Unicorn #5", "posIndex": 4},
+	{ "name": "Unicorn #6", "posIndex": 2},
+	{ "name": "Unicorn #7", "posIndex": 3},
+    ];
+	
+ 
+    function updatePos(idx) {
+	$("#ucIndex").val(idx);
+	$("#ucName").text("Update " + unicorns[idx].name + "'s position:");
+	$("#editPos").show();
+
+	alert(idx);
+    }
+
+    function savePos() {
+	var idx = parseInt($("#ucIndex").val());
+	var posIdx = parseInt($("#selLoc").val());
+	unicorns[idx].posIndex = posIdx;
+	$("#editPos").hide();
+
+	var liHTML = "<span class=\"name\">" + unicorns[idx].name + "</span><span>" +
+			locations[unicorns[idx].posIndex] + "</span><span><button type=\"button\" onclick=\"updatePos(" + idx + ")\">Update Position</button></span>");
+	$("#posList li:nth-child(" + (idx+1) + ")").html(liHTML);
+    }
+
+    </script>
+
+</body>
+
+</html>
