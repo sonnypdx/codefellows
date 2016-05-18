@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Forte Me! - Step1</title>
+    <title>Unicorn Ranch</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -18,11 +18,40 @@
     <link href="css/stylish-portfolio.css" rel="stylesheet">
 
     <style type="text/css">
-	span.name {
-		color: blue;
-		padding-right: 10px;
-		width: 50px;
+	span.title {
+	  display: inline-block;
+	  width: 75px;
+	  font-weight: bold;
+	  padding-right: 10px;
 	}
+
+	span.pos {
+	  display: inline-block;
+	  width: 100px;
+          padding-right: 10px;
+	}
+
+
+	span.name {
+	  display: inline-block;
+	  color: blue;
+	  padding-right: 10px;
+	  width: 75px;
+	}
+
+	li {
+	   padding: 5px;
+	   list-style-type: none;
+	}
+
+	#editPos {
+	  border: 2px solid blue;
+	  background: gray;
+	  position: absolute;
+	  top: 50px;
+	  left: 50px;
+	}
+
     </style>
 
     <!-- Custom Fonts -->
@@ -39,15 +68,12 @@
 </head>
 
 <body>
-    <!-- Services -->
-    <!-- The circle icons use Font Awesome's stacked icon classes. For more information, visit http://fontawesome.io/examples/ -->
-    <section id="services" class="services bg-primary">
-        <div class="container">
+	<div>
 		<ul id="posList">
-			<li><span style="font-weight: bold;padding-right: 10px; width: 50px;">Name</span><span style="font-weight: bold; width: 50px;">Location</span><span>Edit</span>
+			<li style="padding: 5px;"><span class="title">Unicorn </span><span class="pos" style="font-weight: bold;">Location</span><span style="font-weight:bold;">Edit</span>
 		</ul>
 	</div>
-    </section>
+
 
     <!-- Footer -->
     <footer>
@@ -91,8 +117,8 @@
 
     $(document).ready(function() {
 	for(var i = 0; i < unicorns.length; i++) {
-		$("#posList").append("<li><span class=\"name\">" + unicorns[i].name + "</span><span>" +
-			locations[unicorns[i].posIndex] + "</span><span><button type=\"button\" onclick=\"updatePos(" + i + ")\">Update Position</button></span></li>");
+		$("#posList").append("<li><span class=\"name\">" + unicorns[i].name + "</span><span class=\"pos\">" +
+			locations[unicorns[i].posIndex] + "</span><span><button type=\"button\" onclick=\"updatePos(" + i + ")\" title=\"Update Position\">Edit</button></span></li>");
 	}
 
 	for(var i = 0; i < locations.length; i++) {
@@ -119,7 +145,7 @@
 	$("#ucName").text("Update " + unicorns[idx].name + "'s position:");
 	$("#editPos").show();
 
-	alert(idx);
+//	alert(idx);
     }
 
     function savePos() {
@@ -128,9 +154,9 @@
 	unicorns[idx].posIndex = posIdx;
 	$("#editPos").hide();
 
-	var liHTML = "<span class=\"name\">" + unicorns[idx].name + "</span><span>" +
-			locations[unicorns[idx].posIndex] + "</span><span><button type=\"button\" onclick=\"updatePos(" + idx + ")\">Update Position</button></span>");
-	$("#posList li:nth-child(" + (idx+1) + ")").html(liHTML);
+	var liHTML = "<span class=\"name\">" + unicorns[idx].name + "</span><span class=\"pos\">" +
+			locations[unicorns[idx].posIndex] + "</span><span><button type=\"button\" onclick=\"updatePos(" + idx + ")\" title=\"Update Position\">Edit</button></span>";
+	$("#posList li:nth-child(" + (idx+2) + ")").html(liHTML);
     }
 
     </script>
